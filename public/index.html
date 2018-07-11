@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+   <head>
+      <meta charset = "UTF-8">
+      <title>Basic CRUD APP</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
+   </head>
+
+   <body>
+      <div id = "app"></div>
+      <script src = "index.js"></script>
+   </body>
+   <script>
+       $(function(){
+
+          $('.slider-nav').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            asNavFor: '.slider-nav',
+            dots: true,
+            focusOnSelect: true,
+            vertical: true,
+            infinite: false,
+            centerMode: true
+          });
+
+
+        // $('#slider').slick({
+        //   // autoPlay:true,
+        //   // dots: true,
+        //   arrows: true,
+        //   // vertical: true,
+        //   autoplay: true,
+        //   dots: true,
+        //   vertical: true,
+        //   centerMode: true,
+        //   infinite: false,
+
+        //   // 
+
+        //   // 
+        //   responsive: [{ 
+        //       breakpoint: 500,
+        //       settings: {
+        //           dots: false,
+        //           arrows: false,
+        //           infinite: false,
+        //           slidesToShow: 2,
+        //           slidesToScroll: 2
+        //       } 
+        //   }]
+        // });  
+
+        // // here
+
+        
+
+      });
+   </script>
+   <script>
+      
+   </script>
+
+</html>

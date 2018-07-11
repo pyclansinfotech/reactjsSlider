@@ -1,0 +1,39 @@
+body{
+  background:black;
+}
+.main {
+  font-family:Arial;
+  width:300px;
+  display:block;
+  /*margin:0 auto;*/
+}
+.main .verticalSliderText {
+    /*background: #fff;*/
+    /*color: #3498db;*/
+    color: grey;
+    font-size: 25px;
+    line-height: 50px;
+    margin: 10px;
+    /*padding: 2%;*/
+    position: relative;
+    text-align: center;
+}
+.action{
+  display:block;
+  margin:100px auto;
+  width:100%;
+  text-align:center;
+}
+.action a {
+  display:inline-block;
+  padding:5px 10px; 
+  background:#f30;
+  color:#fff;
+  text-decoration:none;
+}
+.action a:hover{
+  background:#000;
+}
+.slick-current .verticalSliderText {
+  color: white !important;
+}

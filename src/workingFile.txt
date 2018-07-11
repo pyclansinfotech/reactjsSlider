@@ -1,0 +1,234 @@
+import React from "react";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      completeName: "",
+      email: "",
+      emailValidOrNot: "",
+      allEmails: [],
+      formErrors: { email: "" },
+      emailValid: false,
+      isDeleteRecords: [],
+      showRecords: false
+    };
+  }
+
+  handleUserInput(e) {
+    this.state.email = e.target.value;
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({ [name]: value });
+    const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+    this.state.emailValidOrNot = emailValid;
+  }
+
+  addRecords(emailValue, e) {
+    e.preventDefault();
+    var enterValue = 0;
+    for (var i = 0; i < this.state.allEmails.length; i++) {
+      if (this.state.allEmails[i].email == emailValue) {
+        enterValue++;
+      }
+    }
+    if (enterValue == 0) {
+      this.setState({ showRecords: true });
+      var lengthOfArray = this.state.allEmails.length;
+      this.state.isDeleteRecords[lengthOfArray] = false;
+      this.setState({ allEmaisDeleteRecordsils: this.state.isDeleteRecords });
+
+      this.state.allEmails.push({
+        name: this.state.completeName,
+        email: emailValue
+      });
+      this.setState({ allEmails: this.state.allEmails });
+    }
+  }
+
+  deleteRecords(e, index) {
+    // const indexValue = this.state.allEmails.indexOf(index)
+    e.preventDefault();
+    var myArray = this.state.allEmails.slice();
+    myArray.splice(index, 1);
+    this.setState({ allEmails: myArray });
+    // this.setState({isDeleteRecords: false})
+    this.state.isDeleteRecords[index] = false;
+    this.setState({ allEmaisDeleteRecordsils: this.state.isDeleteRecords });
+    console.log(
+      this.state.allEmails.length < 1,
+      "here",
+      this.state.allEmails.length
+    );
+    if (this.state.allEmails.length == 1) {
+      this.setState({ showRecords: false });
+    }
+  }
+
+  editRecords(e, index) {
+    console.log("abacus", this.state.isDeleteRecords);
+    // const indexValue = this.state.allEmails.indexOf(index)
+    // this.setState({isDeleteRecords: true})
+    console.log("JSON Values", JSON.stringify(this.state.isDeleteRecords));
+    this.state.isDeleteRecords[index] = true;
+    this.setState({ allEmaisDeleteRecordsils: this.state.isDeleteRecords });
+  }
+
+  nameHandler(e) {
+    this.setState({ completeName: e.target.value });
+  }
+  updateNameHandler(e, index) {
+    this.state.allEmails[index].name = e.target.value;
+    this.forceUpdate();
+  }
+  updateRecords(e, index) {
+    // this.setState({isDeleteRecords: false})
+    this.state.isDeleteRecords[index] = false;
+    this.setState({ allEmaisDeleteRecordsils: this.state.isDeleteRecords });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="myForm">
+          {this.state.emailValidOrNot ? (
+            <p style={{ color: "green" }}>Email is Valid</p>
+          ) : (
+            <p style={{ color: "red" }}>Email is Invalid</p>
+          )}
+
+          <div className="form-inline customForm-inline">
+            <label className="customLabel" for="name">
+              Name:{" "}
+            </label>
+            <input
+              type="text"
+              className="form-control customForm-control"
+              onChange={e => this.nameHandler(e)}
+            />
+          </div>
+
+          <div className="form-inline customForm-inline">
+            <label className="customLabel" for="email">
+              E-Mail:
+            </label>
+            <input
+              type="text"
+              className="form-control customForm-control"
+              value={this.state.email}
+              onChange={event => this.handleUserInput(event)}
+            />
+          </div>
+
+          <button
+            type="button"
+            className="btn btn-primary addRecordsButton"
+            disabled={!this.state.emailValidOrNot}
+            onClick={e => this.addRecords(this.state.email, e)}
+          >
+            Add Records
+          </button>
+        </div>
+
+        <br />
+        <br />
+        <div className="allRecords">
+          {this.state.showRecords ? (
+            <section>
+              <div className="tbl-header">
+                <table cellPadding="0" cellSpacing="0" border="0">
+                  <thead>
+                    <tr>
+                      <th>S.No.</th>
+                      <th>Name</th>
+                      <th>E-Mail</th>
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div className="tbl-content">
+                <table cellPadding="0" cellSpacing="0" border="0">
+                  <tbody>
+                    {this.state.allEmails.map((key, index) => (
+                      <tr>
+                        <td>{index}</td>
+                        <td>
+                          {!this.state.isDeleteRecords[index] ? (
+                            key.name
+                          ) : (
+                            <input
+                              type="text"
+                              value={key.name}
+                              onChange={e => this.updateNameHandler(e, index)}
+                            />
+                          )}
+                        </td>
+                        <td>{key.email}</td>
+                        <td>
+                          {!this.state.isDeleteRecords[index] ? (
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              onClick={e => this.deleteRecords(e, index)}
+                            >
+                              Delete Records
+                            </button>
+                          ) : null}
+                          {!this.state.isDeleteRecords[index] ? (
+                            <button
+                              type="button"
+                              className="btn btn-info"
+                              style={{ marginLeft: 10 }}
+                              onClick={e => this.editRecords(e, index)}
+                            >
+                              Edit Records
+                            </button>
+                          ) : null}
+                          {this.state.isDeleteRecords[index] ? (
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              onClick={e => this.updateRecords(e, index)}
+                            >
+                              Update Records
+                            </button>
+                          ) : null}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
+}
+export default App;
+
+
+
+post code
+
+ updateRecords(e, index) {
+    // this.setState({isDeleteRecords: false})
+    this.state.isDeleteRecords[index] = false
+    this.setState({ allEmaisDeleteRecordsils: this.state.isDeleteRecords })
+    const needToSend = this.state.allEmails
+    console.log('needToSend', needToSend)
+    console.log('needToSend(JSON.stringify)', JSON.stringify(needToSend))
+    // const testObject = { firstName: 'First', lastName: 'Last' }
+    fetch('api/test_fun', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': window.CSRF_TOKEN,
+      },
+      body: JSON.stringify({ needToSend }),
+      // data: JSON.stringify({ needToSend }),
+      // body: JSON.stringify({ testObject }),
+    })
