@@ -1,0 +1,2 @@
+# reactjsSlider
+Vertical Side Slider
